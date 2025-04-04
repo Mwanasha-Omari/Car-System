@@ -34,14 +34,15 @@ const Signup = () => {
 
   return (
     <div className="flex min-h-screen">
-      <div className="relative hidden md:block md:w-1/2 bg-gray-800">
-        <Image
-          src="/Images/cars.jpg"
-          alt="Luxury Cars"
-          fill
-          style={{ objectFit: 'cover' }}
-          className="opacity-50"
-        />
+        <div className="relative hidden md:block md:w-1/2 bg-gray">
+               <Image
+                 src="/Images/cars.jpg"
+                 alt="Luxury Cars"
+                 width={1000}
+                 height={1000}
+                 style={{ objectFit: 'cover', width: '100%', height: '100%' }}
+                 className="opacity-50"
+               />
       </div>
 
       <div className="w-full md:w-1/2 flex justify-center items-center p-8">
@@ -161,9 +162,9 @@ const Signup = () => {
               SIGN UP
             </button>
             
-            <p className="mt-6 text-center text-gray-600">
+            <p className="mt-6 text-center text-white">
               Already have an account?{' '}
-              <Link href="/Login" className="text-orange-500 hover:bold font-medium">
+              <Link href="\Login" className="text-orange-500 hover:bold font-medium">
                 Login
               </Link>
             </p>

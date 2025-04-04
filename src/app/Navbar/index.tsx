@@ -5,7 +5,7 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <nav className="fixed top-0 left-0 right-0 h-16.1 bg-primary-blue bg-opacity-40 text-base text-white py-4 px-6 w-full flex font-sans items-center z-50">
+    <nav className="fixed top-0 left-0 right-0 h-16.1 bg-black text-base text-white py-4 px-6 w-full flex font-sans items-center z-50">
       <div className="flex items-center w-full justify-between">
         <div className="hidden md:flex gap-40 mt-2 text-2xl mr-40">
           <NavLink href="#home">Home</NavLink>
@@ -24,7 +24,7 @@ const Navbar = () => {
         </div>
       </div>
       {isMenuOpen && (
-        <div className="md:hidden fixed inset-0 bg-transparent z-40 flex flex-col items-center justify-center"> {/* Removed bg-opacity */}
+        <div className="md:hidden fixed inset-0 bg-transparent z-40 flex flex-col items-center justify-center">
           <button
             onClick={() => setIsMenuOpen(false)}
             className="absolute top-4 right-4 text-white focus:outline-none"
@@ -50,7 +50,7 @@ interface NavLinkProps {
 
 function NavLink({ href, children }: NavLinkProps) {
   return (
-    <a href={href} className="text-white hover:text-primary-amber hover:font-bold">
+    <a href={href} className="text-white hover:text-underline-offset: <4> hover:font-bold">
       {children}
     </a>
   );
@@ -64,7 +64,7 @@ interface MobileNavLinkProps {
 
 function MobileNavLink({ href, children, onClick }: MobileNavLinkProps) {
   return (
-    <a href={href} onClick={onClick} className="block px-3 py-4 text-2xl text-white hover:text-primary-amber">
+    <a href={href} onClick={onClick} className="block px-3 py-4 text-2xl text-white hover:text-underline-offset: <4>">
       {children}
     </a>
   );
