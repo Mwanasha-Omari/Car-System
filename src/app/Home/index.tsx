@@ -2,6 +2,7 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import LoginPage from '../Login/page';
 
 const LandingPage = () => {
   return (
@@ -23,7 +24,7 @@ const LandingPage = () => {
           <p className="text-lg sm:text-xl md:text-2xl max-w-2xl mx-auto mb-12">
             Join us to learn more.
           </p>
-          <Link href="login">
+          <Link href="/Login">
             <button className="text-orange-600 outline-solid outline-orange-600 bg-dark-orange px-8 py-4 text-lg sm:text-xl font-semibold rounded-md 
                                hover:bg-orange-600 hover:text-bold hover:text-white transition-colors duration-300 transform hover:scale-105">
               GET STARTED
