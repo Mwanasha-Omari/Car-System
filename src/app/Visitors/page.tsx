@@ -57,6 +57,8 @@ const Visitors = () => {
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [selectedFloor, setSelectedFloor] = useState<string>('All Floors');
   const [arrivalTime, setArrivalTime] = useState<string>(''); 
+  
+// eslint-disable-next-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     setTimeout(() => {
