@@ -155,14 +155,16 @@ const Signup = () => {
               </div>
             </div>
             
+            <Link href="/Sidebar">
             <button
               type="submit"
               className="w-full bg-orange-500 hover:bg-orange-600 text-white py-3 rounded font-medium"
             >
               SIGN UP
             </button>
+            </Link>
             
-            <p className="mt-6 text-center text-white">
+            <p className="mt-6 text-center text-black">
               Already have an account?{' '}
               <Link href="/Login" className="text-orange-500 hover:bold font-medium">
                 Login

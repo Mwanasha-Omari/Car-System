@@ -21,7 +21,6 @@ const LoginPage = () => {
       ...formData,
       [e.target.name]: e.target.value
     })
-    // Clear error when user starts typing again
     if (error) setError('')
   }
  
@@ -46,8 +45,7 @@ const LoginPage = () => {
       
       
       setTimeout(() => {
-        // ifsuccessful login, redirect to home
-        router.push('/home')
+        router.push('/Home')
       }, 1000)
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Login failed. Please try again.')
@@ -128,6 +126,7 @@ const LoginPage = () => {
               </div>
             </div>
              
+            <Link href="/Sidebar">
             <button
               type="submit"
               className={`w-full bg-orange-600 hover:bg-orange-700 text-white py-3 rounded font-medium ${isLoading ? 'opacity-70 cursor-not-allowed' : ''}`}
@@ -135,6 +134,7 @@ const LoginPage = () => {
             >
               {isLoading ? 'LOGGING IN...' : 'LOGIN'}
             </button>
+            </Link>
           </form>
            
           <div className="mt-6 text-center">
