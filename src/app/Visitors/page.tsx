@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import { FiChevronDown } from 'react-icons/fi';
+import Layout from '../components/Layout';
+
 
 interface Visitor {
   id: number;
@@ -55,7 +57,7 @@ const Visitors = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [selectedFloor, setSelectedFloor] = useState<string>('All Floors');
-  const [arrivalTime, setArrivalTime] = useState<string>(''); // Input field for arrival time
+  const [arrivalTime, setArrivalTime] = useState<string>(''); 
 
   useEffect(() => {
     setTimeout(() => {
@@ -137,7 +139,8 @@ const Visitors = () => {
   );
 
   return (
-    <div className="flex flex-col items-center p-4 md:p-8 text-black">
+    <Layout>
+      <div className="flex flex-col items-center p-4 md:p-8 text-black">
       <h1 className="text-2xl md:text-3xl font-bold mb-4 text-center">Find Your Rentals Here</h1>
 
       <div className="flex flex-col md:flex-row gap-4 mb-6 w-full max-w-2xl">
@@ -223,6 +226,7 @@ const Visitors = () => {
         </div>
       ))}
     </div>
+    </Layout>
   );
 };
 

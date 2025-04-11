@@ -14,30 +14,42 @@ const Sidebar = () => {
 
   return (
     <>
-      
       <div className="fixed top-0 left-0 h-full bg-orange-600 text-white w-64 flex-col hidden md:flex py-8 px-4 z-50">
-        <SidebarLink href="/home" icon={<HomeIcon className="h-6 w-6" />}>Home</SidebarLink>
+        <SidebarLink href="/Home" icon={<HomeIcon className="h-6 w-6" />}>Home</SidebarLink>
         <SidebarLink href="/Tenants" icon={<UsersIcon className="h-6 w-6" />}>Tenants</SidebarLink>
         <SidebarLink href="/Visitors" icon={<UserGroupIcon className="h-6 w-6" />}>Visitors</SidebarLink>
       </div>
-
-      
       <div className="md:hidden fixed top-4 left-4 z-50">
-        <button onClick={() => setIsSidebarOpen(!isSidebarOpen)} className="text-white">
+        <button 
+          onClick={() => setIsSidebarOpen(!isSidebarOpen)} 
+          className="bg-orange-600 text-white p-2 rounded-md hover:bg-orange-700 transition-colors"
+          aria-label="Toggle menu">
           {isSidebarOpen ? (
-            <XMarkIcon className="h-8 w-8" />
+            <XMarkIcon className="h-6 w-6" />
           ) : (
-            <Bars3Icon className="h-8 w-8" />
+            <Bars3Icon className="h-6 w-6" />
           )}
         </button>
       </div>
 
-     
       {isSidebarOpen && (
-        <div className="md:hidden fixed top-0 left-0 h-full w-64 bg-black text-white flex flex-col py-8 px-4 z-40">
-          <SidebarLink href="/home" icon={<HomeIcon className="h-6 w-6" />} onClick={() => setIsSidebarOpen(false)}>Home</SidebarLink>
-          <SidebarLink href="/Tenants" icon={<UsersIcon className="h-6 w-6" />} onClick={() => setIsSidebarOpen(false)}>Tenants</SidebarLink>
-          <SidebarLink href="/Visitors" icon={<UserGroupIcon className="h-6 w-6" />} onClick={() => setIsSidebarOpen(false)}>Visitors</SidebarLink>
+        <div className="md:hidden fixed inset-0 bg-orange-600 bg-opacity-50 z-40" onClick={() => setIsSidebarOpen(false)}>
+          <div 
+            className="fixed top-0 left-0 h-full w-64 bg-orange-600 text-white flex flex-col py-8 px-4 z-40"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="mb-6 px-2 flex justify-between items-center">
+              <button 
+                onClick={() => setIsSidebarOpen(false)}
+                className="text-white hover:bg-orange-700 p-1 rounded-full"
+                aria-label="Close menu">
+                <XMarkIcon className="h-6 w-6" />
+              </button>
+            </div>
+            <SidebarLink href="/Home" icon={<HomeIcon className="h-6 w-6" />} onClick={() => setIsSidebarOpen(false)}>Home</SidebarLink>
+            <SidebarLink href="/Tenants" icon={<UsersIcon className="h-6 w-6" />} onClick={() => setIsSidebarOpen(false)}>Tenants</SidebarLink>
+            <SidebarLink href="/Visitors" icon={<UserGroupIcon className="h-6 w-6" />} onClick={() => setIsSidebarOpen(false)}>Visitors</SidebarLink>
+          </div>
         </div>
       )}
     </>
@@ -56,7 +68,7 @@ const SidebarLink = ({ href, children, icon, onClick }: SidebarLinkProps) => {
     <Link
       href={href}
       onClick={onClick}
-      className="flex items-center gap-4 text-lg py-3 px-2 hover:bg-gray-800 rounded transition-all"
+      className="flex items-center gap-4 text-lg py-3 px-2 hover:bg-orange-700 rounded transition-all"
     >
       {icon}
       {children}

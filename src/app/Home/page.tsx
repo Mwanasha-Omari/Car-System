@@ -1,10 +1,12 @@
 'use client';
-
 import Link from 'next/link';
+import Layout from '../components/Layout';
+
 
 export default function Home() {
   return (
-    <div className="relative min-h-screen bg-cover bg-center" style={{ backgroundImage: "url('/Images/cars.jpg')" }}    >
+    <Layout>
+      <div className="relative min-h-screen bg-cover bg-center" style={{ backgroundImage: "url('/Images/cars.jpg')" }}    >
       <div className="absolute inset-0 bg-black bg-opacity-60 z-0" />
       <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-4 text-white">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">
@@ -28,5 +30,6 @@ export default function Home() {
         </div>
       </div>
     </div>
+    </Layout>
   );
 }

@@ -155,7 +155,7 @@ const Signup = () => {
               </div>
             </div>
             
-            <Link href="/Sidebar">
+            <Link href="/Home">
             <button
               type="submit"
               className="w-full bg-orange-500 hover:bg-orange-600 text-white py-3 rounded font-medium"

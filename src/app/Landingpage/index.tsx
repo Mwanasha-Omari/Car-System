@@ -1,43 +1,38 @@
 'use client';
-
+import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
-export default function Home() {
+const LandingPage = () => {
   return (
-    <div className="relative h-screen">
-      <div className="absolute inset-0">
-        <Image
-          src="/cars.jpg" 
-          alt="Car background"
+    <div id='home' className='relative h-screen'>
+      <div className='absolute inset-0'>
+        <Image 
+          src="/Images/cars.jpg" 
+          alt="Landing Image" 
           fill
           priority
-          className="object-cover"
-        />
+          className="object-cover" />
       </div>
-      <div className="relative h-full bg-black/70 flex flex-col justify-center items-center text-center text-white px-4">
-        <div className="max-w-3xl mx-auto">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6">
-            Welcome to Car Management System
+      <div className="relative h-full bg-black/70 flex flex-col justify-center items-center text-center text-white px-4 sm:px-6 md:px-8 lg:px-12">
+        <div className="max-w-7xl mx-auto">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
+            Get Started Today<br />
+            Discover about our services
           </h1>
-          <p className="text-lg sm:text-xl mb-10">
-            View all tenants, their rental details, or track and manage visitors per floor.
+          <p className="text-lg sm:text-xl md:text-2xl max-w-2xl mx-auto mb-12">
+            Join us to learn more.
           </p>
-
-          <div className="flex flex-col sm:flex-row justify-center gap-6">
-            <Link href="/Tenants">
-              <button className="px-6 py-3 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition shadow">
-                View Tenants
-              </button>
-            </Link>
-            <Link href="/Visitors">
-              <button className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition shadow">
-                Manage Visitors
-              </button>
-            </Link>
-          </div>
+          <Link href="/Login">
+            <button className="text-orange-600 outline-solid outline-orange-600 bg-dark-orange px-8 py-4 text-lg sm:text-xl font-semibold rounded-md 
+                               hover:bg-orange-600 hover:text-bold hover:text-white transition-colors duration-300 transform hover:scale-105">
+              GET STARTED
+            </button>
+          </Link>
         </div>
       </div>
     </div>
   );
-}
+};
+
+export default LandingPage;

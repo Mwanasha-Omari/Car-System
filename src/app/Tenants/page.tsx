@@ -3,6 +3,8 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { FiChevronDown } from 'react-icons/fi';
+import Layout from '../components/Layout';
+
 
 interface Tenant {
   id: number;
@@ -145,7 +147,8 @@ const TenantDisplay = () => {
   );
 
   return (
-    <div className="flex text-black flex-col items-center p-4 md:p-8">
+   <Layout>
+     <div className="flex text-black flex-col items-center p-4 md:p-8">
       <h1 className="text-2xl md:text-3xl font-bold mb-4 text-center">Find Your Rentals Here</h1>
       
       <div className="flex flex-col md:flex-row gap-4 mb-6 w-full max-w-2xl">
@@ -227,6 +230,7 @@ const TenantDisplay = () => {
         </div>
       )}
     </div>
+   </Layout>
   );
 };
 

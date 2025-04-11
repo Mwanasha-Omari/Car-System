@@ -126,7 +126,7 @@ const LoginPage = () => {
               </div>
             </div>
              
-            <Link href="/Sidebar">
+            <Link href="/Home">
             <button
               type="submit"
               className={`w-full bg-orange-600 hover:bg-orange-700 text-white py-3 rounded font-medium ${isLoading ? 'opacity-70 cursor-not-allowed' : ''}`}
