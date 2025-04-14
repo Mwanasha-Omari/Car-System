@@ -50,7 +50,7 @@ const Signup = () => {
           <h1 className="text-2xl font-bold mb-8 text-center">SIGNUP</h1>
           
           <form onSubmit={handleSubmit}>
-            <div className="mb-6 text-black">
+            <div className="mb-6">
               <label htmlFor="name" className="block mb-2 font-medium">
                 Name
               </label>
@@ -61,7 +61,7 @@ const Signup = () => {
                 placeholder="Enter name"
                 value={formData.name}
                 onChange={handleChange}
-                className="w-full p-3 bg-gray-100 rounded focus:outline-none"
+                className="w-full text-black p-3 bg-gray-100 rounded focus:outline-none"
                 required
               />
             </div>
@@ -77,7 +77,7 @@ const Signup = () => {
                 placeholder="Enter Email"
                 value={formData.email}
                 onChange={handleChange}
-                className="w-full p-3 bg-gray-100 rounded focus:outline-none"
+                className="w-full p-3 bg-gray-100 rounded focus:outline-none text-black"
                 required
               />
             </div>
@@ -86,7 +86,7 @@ const Signup = () => {
               <label htmlFor="property" className="block mb-2 font-medium">
                 Select Property Type
               </label>
-              <div className="relative">
+              <div className="relative text-black">
                 <select
                   id="property"
                   name="property"
@@ -117,7 +117,7 @@ const Signup = () => {
                   placeholder="Enter password"
                   value={formData.password}
                   onChange={handleChange}
-                  className="w-full p-3 bg-gray-100 rounded focus:outline-none"
+                  className="w-full text-black p-3 bg-gray-100 rounded focus:outline-none"
                   required
                 />
                 <button
@@ -142,7 +142,7 @@ const Signup = () => {
                   placeholder="Confirm password"
                   value={formData.confirmPassword}
                   onChange={handleChange}
-                  className="w-full p-3 bg-gray-100 rounded focus:outline-none"
+                  className="w-full text-black p-3 bg-gray-100 rounded focus:outline-none"
                   required
                 />
                 <button
