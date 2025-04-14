@@ -1,21 +1,22 @@
-'use client';
-
+"use client"
 import { useState, useEffect } from 'react';
-import { FiChevronDown } from 'react-icons/fi';
-import Layout from '../components/Layout';
+import { Search, ChevronDown, Plus, Trash, RefreshCw } from 'lucide-react';
 
 interface Visitor {
-  id: number;
+  _id?: string;
+  tenantId: string;
   fullName: string;
   carType: string;
   idNumber: string;
   arrivalTime: string;
   departureTime: string;
   duration: string;
+  status: 'checked-in' | 'checked-out';
+  phoneNumber?: string;
 }
 
 interface Tenant {
-  id: number;
+  _id: string;
   businessName: string;
   ownerName: string;
   businessType: string;
@@ -23,209 +24,425 @@ interface Tenant {
   numberPlate: string;
   imageUrl: string;
   floor: string;
-  visitors: Visitor[];
+  visitors?: Visitor[];
 }
 
-const allTenants: Tenant[] = [
+const mockTenants: Tenant[] = [
   {
-    id: 1,
-    businessName: "Bloom & Grow",
-    ownerName: "Terry Mutheu",
-    businessType: "Flower Shop",
-    car: "Toyota Corolla",
-    numberPlate: "FL-5678",
-    imageUrl: "/images/flowershop.jpg",
-    floor: "First Floor",
-    visitors: [],
+    _id: "t1",
+    businessName: "Westside Coffee Shop",
+    ownerName: "John Maina",
+    businessType: "Food & Beverages",
+    car: "Toyota",
+    numberPlate: "KBZ 123A",
+    imageUrl: "/placeholder.jpg",
+    floor: "1st Floor"
   },
   {
-    id: 2,
-    businessName: "Chic Boutique",
-    ownerName: "Michael Otieno",
-    businessType: "Boutique",
-    car: "Honda Civic",
-    numberPlate: "BQ-1234",
-    imageUrl: "/images/botique.jpg",
-    floor: "First Floor",
-    visitors: [],
+    _id: "t2",
+    businessName: "Savannah Tech Solutions",
+    ownerName: "Wanjiku Kamau",
+    businessType: "IT Services",
+    car: "Honda",
+    numberPlate: "KCE 456B",
+    imageUrl: "/placeholder.jpg",
+    floor: "2nd Floor"
   },
+  {
+    _id: "t3",
+    businessName: "Maisha Pharmacy",
+    ownerName: "Dr. Otieno",
+    businessType: "Healthcare",
+    car: "Mazda",
+    numberPlate: "KDF 789C",
+    imageUrl: "/placeholder.jpg",
+    floor: "1st Floor"
+  },
+  {
+    _id: "t4",
+    businessName: "Safari Books & Stationery",
+    ownerName: "Sarah Njeri",
+    businessType: "Retail",
+    car: "Nissan",
+    numberPlate: "KCA 321D",
+    imageUrl: "/placeholder.jpg",
+    floor: "3rd Floor"
+  }
 ];
 
-const Visitors = () => {
+const mockVisitors: Record<string, Visitor[]> = {
+  "t1": [
+    {
+      _id: "v1",
+      tenantId: "t1",
+      fullName: "Mwangi Kimani",
+      carType: "Toyota",
+      idNumber: "29384756",
+      arrivalTime: "09:30",
+      departureTime: "10:45",
+      duration: "75 mins",
+      status: "checked-out"
+    }
+  ],
+  "t2": [
+    {
+      _id: "v2",
+      tenantId: "t2",
+      fullName: "Atieno Ouma",
+      carType: "Honda",
+      idNumber: "37485921",
+      arrivalTime: "11:15",
+      departureTime: "",
+      duration: "",
+      status: "checked-in"
+    }
+  ]
+};
+
+const Layout = ({ children }) => {
+  return (
+    <div className="min-h-screen bg-gray-50">
+      <main className="container mx-auto py-6">{children}</main>
+    </div>
+  );
+};
+const VisitorManagementApp = () => {
   const [tenants, setTenants] = useState<Tenant[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [selectedFloor, setSelectedFloor] = useState<string>('All Floors');
-  const [arrivalTime, setArrivalTime] = useState<string>(''); 
-  
-// eslint-disable-next-line react-hooks/exhaustive-deps
+  const [visitorFormState, setVisitorFormState] = useState<Record<string, any>>({});
 
-  useEffect(() => {
-    setTimeout(() => {
-      setTenants(allTenants);
-      setLoading(false);
-    }, 800);
-  }, []);
-
-  const generateAfricanName = () => {
-    const names = ["Mwangi", "Atieno", "Mutua", "Wanjiru", "Odhiambo", "Mugambi", "Akinyi", "Njeri", "Kamau"];
-    return names[Math.floor(Math.random() * names.length)] + " " + names[Math.floor(Math.random() * names.length)];
+  const resetVisitorForm = (tenantId: string) => {
+    setVisitorFormState({
+      ...visitorFormState,
+      [tenantId]: {
+        fullName: '',
+        carType: '',
+        idNumber: '',
+        phoneNumber: '',
+        arrivalTime: ''
+      }
+    });
   };
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setTimeout(() => {
+          const tenantsWithVisitors = mockTenants.map(tenant => ({
+            ...tenant,
+            visitors: mockVisitors[tenant._id] || []
+          }));
+          setTenants(tenantsWithVisitors);
+                    const formState: Record<string, any> = {};
+          tenantsWithVisitors.forEach(tenant => {
+            formState[tenant._id] = {
+              fullName: '',
+              carType: '',
+              idNumber: '',
+              phoneNumber: '',
+              arrivalTime: ''
+            };
+          });
+          setVisitorFormState(formState);
+          setLoading(false);
+        }, 1000);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   const calculateTime = (arrival: string) => {
-    const arrivalDate = new Date(`2025-04-04T${arrival}`);
+    const arrivalDate = new Date(`2025-04-14T${arrival}`);
     const stayDuration = Math.floor(Math.random() * 120) + 60;
     const departureDate = new Date(arrivalDate.getTime() + stayDuration * 60000);
 
     return {
-      departureTime: departureDate.toLocaleTimeString(),
+      departureTime: departureDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
       duration: `${stayDuration} mins`,
     };
   };
 
-  const addVisitor = (tenantId: number) => {
-    if (!arrivalTime) {
+  const generateName = () => {
+    const firstNames = ["Mwangi", "Atieno", "Mutua", "Wanjiru", "Odhiambo", "Mugambi", "Akinyi", "Njeri", "Kamau"];
+    const lastNames = ["Kimani", "Ouma", "Waweru", "Owino", "Mutiso", "Maina", "Juma", "Karanja", "Onyango"];
+    return `${firstNames[Math.floor(Math.random() * firstNames.length)]} ${lastNames[Math.floor(Math.random() * lastNames.length)]}`;
+  };
+
+  const handleVisitorFormChange = (tenantId: string, field: string, value: string) => {
+    setVisitorFormState({
+      ...visitorFormState,
+      [tenantId]: {
+        ...visitorFormState[tenantId],
+        [field]: value
+      }
+    });
+  };
+
+  const addVisitor = (tenantId: string) => {
+    const formData = visitorFormState[tenantId];
+    
+    if (!formData.arrivalTime) {
       alert("Please enter an arrival time.");
       return;
     }
 
-    setTenants((prev) =>
-      prev.map((tenant) =>
-        tenant.id === tenantId
+    try {
+      const { departureTime, duration } = calculateTime(formData.arrivalTime);
+
+      const visitorData: Visitor = {
+        _id: `v${Math.random().toString(36).substr(2, 9)}`,
+        tenantId,
+        fullName: formData.fullName || generateName(),
+        carType: formData.carType || ["Toyota", "Honda", "Mazda", "Nissan", "Hyundai"][Math.floor(Math.random() * 5)],
+        idNumber: formData.idNumber || `${Math.floor(Math.random() * 1000000)}`,
+        phoneNumber: formData.phoneNumber || `07${Math.floor(Math.random() * 100000000)}`,
+        arrivalTime: formData.arrivalTime,
+        departureTime: '',
+        duration: '',
+        status: 'checked-in'
+      };
+
+      setTenants(prevTenants =>
+        prevTenants.map(tenant =>
+          tenant._id === tenantId
+            ? { ...tenant, visitors: [...(tenant.visitors || []), visitorData] }
+            : tenant
+        )
+      );
+            resetVisitorForm(tenantId);
+      
+    } catch (error) {
+      console.error("Error adding visitor:", error);
+      alert("Failed to add visitor. Please try again.");
+    }
+  };
+
+  const checkoutVisitor = (tenantId: string, visitorId: string) => {
+    const { departureTime, duration } = calculateTime('08:00'); // Just using random time since actual arrival doesn't matter for demo
+
+    setTenants(prevTenants =>
+      prevTenants.map(tenant =>
+        tenant._id === tenantId
           ? {
               ...tenant,
-              visitors: [
-                ...tenant.visitors,
-                {
-                  id: tenant.visitors.length + 1,
-                  fullName: generateAfricanName(),
-                  carType: ["Toyota", "Honda", "Mazda", "Nissan", "Hyundai"][Math.floor(Math.random() * 5)],
-                  idNumber: `${Math.floor(Math.random() * 1000000)}`,
-                  arrivalTime: arrivalTime,
-                  ...calculateTime(arrivalTime),
-                },
-              ],
+              visitors: (tenant.visitors || []).map(visitor =>
+                visitor._id === visitorId
+                  ? { ...visitor, departureTime, duration, status: 'checked-out' as const }
+                  : visitor
+              )
             }
           : tenant
       )
     );
-
-    setArrivalTime(''); 
   };
 
-  const clearVisitors = (tenantId: number) => {
-    setTenants((prev) =>
-      prev.map((tenant) =>
-        tenant.id === tenantId ? { ...tenant, visitors: [] } : tenant
-      )
-    );
+  const clearVisitors = (tenantId: string) => {
+    if (confirm("Are you sure you want to clear all visitors?")) {
+      setTenants(prevTenants =>
+        prevTenants.map(tenant =>
+          tenant._id === tenantId
+            ? { ...tenant, visitors: [] }
+            : tenant
+        )
+      );
+    }
   };
 
   const filteredTenants = tenants.filter(tenant => {
     const matchesSearch =
-      tenant.floor.toLowerCase().includes(searchTerm.toLowerCase()) ||
       tenant.businessName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      tenant.businessType.toLowerCase().includes(searchTerm.toLowerCase());
+      tenant.businessType.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      tenant.floor.toLowerCase().includes(searchTerm.toLowerCase());
+
     const matchesFloor = selectedFloor === 'All Floors' || tenant.floor === selectedFloor;
     return matchesSearch && matchesFloor;
   });
 
-  if (loading) return (
-    <div className="flex justify-center items-center h-64">
-      <p className="text-xl">Loading tenants...</p>
-    </div>
-  );
+  const floors = ['All Floors', ...Array.from(new Set(tenants.map(tenant => tenant.floor)))];
+
+  if (loading) {
+    return (
+      <Layout>
+        <div className="flex justify-center items-center h-64">
+          <div className="text-center">
+            <RefreshCw className="animate-spin h-10 w-10 text-orange-500 mx-auto mb-4" />
+            <p className="text-xl text-gray-700">Loading data...</p>
+          </div>
+        </div>
+      </Layout>
+    );
+  }
 
   return (
     <Layout>
-      <div className="flex flex-col items-center p-4 md:p-8 text-black">
-        <h1 className="text-2xl md:text-3xl font-bold mb-4 text-center">Find Your Rentals Here</h1>
-
-        <div className="flex flex-col md:flex-row gap-4 mb-6 w-full max-w-2xl">
-          <input
-            type="text"
-            placeholder="Search business or floor"
-            className="p-3 bg-gray-100 rounded focus:outline-none focus:ring-2 focus:ring-orange-300 flex-grow"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
-          
-          <div className="relative">
-            <select
-              value={selectedFloor}
-              onChange={(e) => setSelectedFloor(e.target.value)}
-              className="p-3 bg-gray-100 rounded focus:outline-none focus:ring-2 focus:ring-orange-300 appearance-none pr-10 cursor-pointer min-w-[150px]"
-            >
-              {['All Floors', 'First Floor', 'Second Floor'].map(floor => (
-                <option key={floor} value={floor}>{floor}</option>
-              ))}
-            </select>
-            <div className="absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none">
-              <FiChevronDown />
-            </div>
-          </div>
-        </div>
-
-        {filteredTenants.map(tenant => (
-          <div key={tenant.id} className="w-full max-w-4xl bg-white shadow-lg rounded-lg p-5 mb-6">
-            <h2 className="text-xl font-semibold">{tenant.businessName}</h2>
-            <p className="text-gray-700">{tenant.businessType} - {tenant.floor}</p>
-
-            <div className="mt-3 flex gap-3">
-              <input
-                type="time"
-                className="p-2 border border-gray-300 rounded"
-                value={arrivalTime}
-                onChange={(e) => setArrivalTime(e.target.value)}
-              />
-              <button
-                onClick={() => addVisitor(tenant.id)}
-                className="px-4 py-2 bg-orange-500 text-white rounded-md hover:bg-orange-600"
-              >
-                Add Visitor
-              </button>
-              <button
-                onClick={() => clearVisitors(tenant.id)}
-                className="px-4 py-2 bg-gray-400 text-white rounded-md hover:bg-gray-500"
-              >
-                Clear Visitors
-              </button>
-            </div>
-
-            {tenant.visitors.length > 0 && (
-              <div className="mt-4">
-                <h3 className="text-lg font-semibold">Visitors</h3>
-                <table className="w-full mt-2 border-collapse border border-gray-200">
-                  <thead>
-                    <tr className="bg-gray-100">
-                      <th className="border p-2">Name</th>
-                      <th className="border p-2">Car</th>
-                      <th className="border p-2">ID</th>
-                      <th className="border p-2">Arrival</th>
-                      <th className="border p-2">Departure</th>
-                      <th className="border p-2">Duration</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {tenant.visitors.map(visitor => (
-                      <tr key={visitor.id} className="border">
-                        <td className="border p-2">{visitor.fullName}</td>
-                        <td className="border p-2">{visitor.carType}</td>
-                        <td className="border p-2">{visitor.idNumber}</td>
-                        <td className="border p-2">{visitor.arrivalTime}</td>
-                        <td className="border p-2">{visitor.departureTime}</td>
-                        <td className="border p-2">{visitor.duration}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+      <div className="flex flex-col items-center p-4 w-full">
+        <div className="w-full max-w-6xl">
+          <div className="flex flex-col md:flex-row justify-between items-center mb-6">
+            <h1 className="text-2xl font-bold mb-4 md:mb-0">Tenant & Visitor Management</h1>
+            
+            <div className="flex flex-col md:flex-row gap-3 w-full md:w-auto">
+              <div className="relative flex-grow">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
+                <input
+                  type="text"
+                  placeholder="Search businesses..."
+                  className="pl-10 p-2 bg-white border rounded-md focus:outline-none focus:ring-2 focus:ring-orange-300 w-full"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                />
               </div>
-            )}
+              
+              <div className="relative">
+                <select
+                  value={selectedFloor}
+                  onChange={(e) => setSelectedFloor(e.target.value)}
+                  className="p-2 bg-white border rounded-md focus:outline-none focus:ring-2 focus:ring-orange-300 appearance-none pr-10 cursor-pointer"
+                >
+                  {floors.map(floor => (
+                    <option key={floor} value={floor}>{floor}</option>
+                  ))}
+                </select>
+                <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none text-gray-400" size={18} />
+              </div>
+            </div>
           </div>
-        ))}
+
+          {filteredTenants.length === 0 && (
+            <div className="bg-white p-8 rounded-lg shadow-md text-center">
+              <p className="text-gray-500 text-lg">No tenants found. Try a different search.</p>
+            </div>
+          )}
+
+          {filteredTenants.map(tenant => (
+            <div key={tenant._id} className="bg-white shadow-md rounded-lg p-5 mb-6">
+              <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-4">
+                <div>
+                  <h2 className="text-xl font-semibold">{tenant.businessName}</h2>
+                  <p className="text-gray-600">{tenant.businessType} • {tenant.floor}</p>
+                </div>
+                <div className="mt-2 md:mt-0 bg-orange-50 px-3 py-1 rounded-full text-orange-700 text-sm">
+                  <p>Owner: {tenant.ownerName}</p>
+                </div>
+              </div>
+              <div className="bg-gray-50 p-4 rounded-md border border-gray-200 mb-4">
+                <h3 className="font-medium mb-3 flex items-center">
+                  <Plus size={18} className="mr-2 text-orange-500" />
+                  Add New Visitor
+                </h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-3 mb-4">
+                  <input
+                    type="text"
+                    placeholder="Visitor Name"
+                    className="p-2 border border-gray-300 rounded"
+                    value={visitorFormState[tenant._id]?.fullName || ''}
+                    onChange={(e) => handleVisitorFormChange(tenant._id, 'fullName', e.target.value)}
+                  />
+                  <input
+                    type="text"
+                    placeholder="Car Type"
+                    className="p-2 border border-gray-300 rounded"
+                    value={visitorFormState[tenant._id]?.carType || ''}
+                    onChange={(e) => handleVisitorFormChange(tenant._id, 'carType', e.target.value)}
+                  />
+                  <input
+                    type="text"
+                    placeholder="ID Number"
+                    className="p-2 border border-gray-300 rounded"
+                    value={visitorFormState[tenant._id]?.idNumber || ''}
+                    onChange={(e) => handleVisitorFormChange(tenant._id, 'idNumber', e.target.value)}
+                  />
+                  <input
+                    type="text"
+                    placeholder="Phone Number"
+                    className="p-2 border border-gray-300 rounded"
+                    value={visitorFormState[tenant._id]?.phoneNumber || ''}
+                    onChange={(e) => handleVisitorFormChange(tenant._id, 'phoneNumber', e.target.value)}
+                  />
+                  <input
+                    type="time"
+                    placeholder="Arrival Time"
+                    className="p-2 border border-gray-300 rounded"
+                    value={visitorFormState[tenant._id]?.arrivalTime || ''}
+                    onChange={(e) => handleVisitorFormChange(tenant._id, 'arrivalTime', e.target.value)}
+                  />
+                </div>
+                <div className="flex gap-3">
+                  <button
+                    onClick={() => addVisitor(tenant._id)}
+                    className="px-4 py-2 bg-orange-500 text-white rounded-md hover:bg-orange-600 flex items-center"
+                  >
+                    <Plus size={18} className="mr-2" />
+                    Add Visitor
+                  </button>
+                  <button
+                    onClick={() => clearVisitors(tenant._id)}
+                    className="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 flex items-center"
+                  >
+                    <Trash size={18} className="mr-2" />
+                    Clear All
+                  </button>
+                </div>
+              </div>
+              {tenant.visitors && tenant.visitors.length > 0 ? (
+                <div className="overflow-x-auto">
+                  <h3 className="text-lg font-semibold mb-2">Visitors ({tenant.visitors.length})</h3>
+                  <table className="w-full border-collapse">
+                    <thead>
+                      <tr className="bg-gray-50 text-left">
+                        <th className="p-3 border-b">Name</th>
+                        <th className="p-3 border-b">Car</th>
+                        <th className="p-3 border-b">ID</th>
+                        <th className="p-3 border-b">Arrival</th>
+                        <th className="p-3 border-b">Departure</th>
+                        <th className="p-3 border-b">Status</th>
+                        <th className="p-3 border-b">Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {tenant.visitors.map((visitor, index) => (
+                        <tr key={visitor._id || index} className="border-b hover:bg-gray-50">
+                          <td className="p-3">{visitor.fullName}</td>
+                          <td className="p-3">{visitor.carType}</td>
+                          <td className="p-3">{visitor.idNumber}</td>
+                          <td className="p-3">{visitor.arrivalTime}</td>
+                          <td className="p-3">{visitor.departureTime || '-'}</td>
+                          <td className="p-3">
+                            <span className={`px-2 py-1 rounded-full text-xs ${visitor.status === 'checked-in' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'}`}>
+                              {visitor.status === 'checked-in' ? 'Active' : 'Checked out'}
+                            </span>
+                          </td>
+                          <td className="p-3">
+                            {visitor.status === 'checked-in' && (
+                              <button 
+                                onClick={() => checkoutVisitor(tenant._id, visitor._id!)}
+                                className="px-3 py-1 bg-blue-50 text-blue-600 rounded hover:bg-blue-100"
+                              >
+                                Checkout
+                              </button>
+                            )}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              ) : (
+                <div className="text-center py-8 text-gray-500">
+                  <p>No visitors recorded for this tenant yet.</p>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
       </div>
     </Layout>
   );
 };
 
-export default Visitors;
+export default VisitorManagementApp;
