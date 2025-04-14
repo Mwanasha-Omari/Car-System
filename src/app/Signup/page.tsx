@@ -129,7 +129,6 @@ const Signup = () => {
                 </button>
               </div>
             </div>
-            
             <div className="mb-8">
               <label htmlFor="confirmPassword" className="block mb-2 font-medium">
                 Confirm Password
