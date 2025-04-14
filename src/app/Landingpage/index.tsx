@@ -24,7 +24,7 @@ const LandingPage = () => {
             Join us to learn more.
           </p>
           <Link href="/Login">
-            <button className="text-orange-600 outline-solid outline-orange-600 bg-dark-orange px-8 py-4 text-lg sm:text-xl font-semibold rounded-md 
+            <button className="text-white bg-orange-500 px-8 py-4 text-lg sm:text-xl font-semibold rounded-md 
                                hover:bg-orange-600 hover:text-bold hover:text-white transition-colors duration-300 transform hover:scale-105">
               GET STARTED
             </button>
