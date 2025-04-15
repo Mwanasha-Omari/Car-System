@@ -1,7 +1,7 @@
 "use client"
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Search, ChevronDown, Plus, Trash} from 'lucide-react';
+import { Search, ChevronDown, Plus, Trash,RefreshCw} from 'lucide-react';
 import { HomeIcon, UsersIcon, UserGroupIcon, Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 
 interface Visitor {
@@ -191,7 +191,7 @@ const Layout = ({ children }) => {
 
 const Visitors = () => {
   const [tenants, setTenants] = useState<Tenant[]>([]);
-  // const [loading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(true);
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [selectedFloor, setSelectedFloor] = useState<string>('All Floors');
   const [visitorFormState, setVisitorFormState] = useState<Record<string, any>>({});
@@ -349,18 +349,18 @@ const Visitors = () => {
 
   const floors = ['All Floors', ...Array.from(new Set(tenants.map(tenant => tenant.floor)))];
 
-  // if (loading) {
-  //   return (
-  //     <Layout>
-  //       <div className="flex justify-center items-center h-64">
-  //         <div className="text-center">
-  //           <RefreshCw className="animate-spin h-10 w-10 text-orange-500 mx-auto mb-4" />
-  //           <p className="text-xl text-gray-700">Loading data...</p>
-  //         </div>
-  //       </div>
-  //     </Layout>
-  //   );
-  // }
+  if (loading) {
+    return (
+      <Layout>
+        <div className="flex justify-center items-center h-64">
+          <div className="text-center">
+            <RefreshCw className="animate-spin h-10 w-10 text-orange-500 mx-auto mb-4" />
+            <p className="text-xl text-gray-700">Loading data...</p>
+          </div>
+        </div>
+      </Layout>
+    );
+  }
 
   return (
     <Layout>

@@ -6,7 +6,7 @@ import { FiChevronDown } from 'react-icons/fi';
 import Layout from '../components/Layout';
 
 interface Tenant {
-  id: number;
+  _id: string;
   businessName: string;
   ownerName: string;
   businessType: string;
@@ -19,94 +19,94 @@ interface Tenant {
 const TenantDisplay = () => {
   const allTenants: Tenant[] = [
     {
-      id: 1,
-      businessName: "Bloom & Grow",
-      ownerName: "Terry Mutheu",
-      businessType: "Flower Shop",
-      car: "Toyota Corolla",
-      numberPlate: "FL-5678",
-      imageUrl: "/Images/flowershop.jpg",
-      floor: "First Floor"
+      _id: "t1",
+      businessName: "Westside Coffee Shop",
+      ownerName: "John Maina",
+      businessType: "Food & Beverages",
+      car: "Toyota",
+      numberPlate: "KBZ 123A",
+      imageUrl: "/Images/caffe.jpg",
+      floor: "1st Floor"
     },
     {
-      id: 2,
-      businessName: "Chic Boutique",
-      ownerName: "Michael Otieno",
-      businessType: "Boutique",
-      car: "Honda Civic",
-      numberPlate: "BQ-1234",
-      imageUrl: "/Images/botique.jpg",
-      floor: "First Floor"
+      _id: "t2",
+      businessName: "Maisha Pharmacy",
+      ownerName: "Dr. Otieno",
+      businessType: "Healthcare",
+      car: "Mazda",
+      numberPlate: "KDF 789C",
+      imageUrl: "/Images/pharmacy.jpg",
+      floor: "1st Floor"
     },
     {
-      id: 3,
-      businessName: "Fresh Bites",
-      ownerName: "Susan Kamau",
-      businessType: "Bakery",
-      car: "Nissan Sentra",
-      numberPlate: "BK-7890",
-      imageUrl: "/Images/bakery.jpg",
-      floor: "First Floor"
+      _id: "t3",
+      businessName: "Savannah Tech Solutions",
+      ownerName: "Wanjiku Kamau",
+      businessType: "IT Services",
+      car: "Honda",
+      numberPlate: "KCE 456B",
+      imageUrl: "/Images/techie.jpg",
+      floor: "1st Floor"
     },
     {
-      id: 4,
-      businessName: "Sharp Cuts",
-      ownerName: "Medan Wilson",
-      businessType: "Barber Shop",
-      car: "Mazda 3",
-      numberPlate: "BS-9012",
-      imageUrl: "/Images/barbershop.jpg",
-      floor: "Second Floor"
+      _id: "t4",
+      businessName: "Safari Books & Stationery",
+      ownerName: "Sarah Njeri",
+      businessType: "Retail",
+      car: "Nissan",
+      numberPlate: "KCA 321D",
+      imageUrl: "/Images/books-a.jpg",
+      floor: "2nd Floor"
     },
     {
-      id: 5,
-      businessName: "Tech Haven",
-      ownerName: "James Omondi",
+      _id: "t5",
+      businessName: "Gadget Galaxy",
+      ownerName: "Mike Ochieng",
       businessType: "Electronics Store",
       car: "Subaru Outback",
-      numberPlate: "TE-3456",
+      numberPlate: "KBF 789J",
       imageUrl: "/Images/electronics.jpg",
-      floor: "Second Floor"
+      floor: "2nd Floor"
     },
     {
-      id: 6,
-      businessName: "Coffee Corner",
-      ownerName: "Diana Njeri",
-      businessType: "Café",
+      _id: "t6",
+      businessName: "Brew & Blend",
+      ownerName: "Caroline Wambui",
+      businessType: "Coffee Shop",
       car: "Hyundai Tucson",
-      numberPlate: "CC-5678",
-      imageUrl: "/Images/cafe.jpg",
-      floor: "Second Floor"
+      numberPlate: "KBC 987P",
+      imageUrl: "/Images/coffee.jpg",
+      floor: "2nd Floor"
     },
     {
-      id: 7,
-      businessName: "Fitness First",
-      ownerName: "Brian Kimani",
-      businessType: "Gym",
+      _id: "t7",
+      businessName: "Iron Fit Gym",
+      ownerName: "James Muriithi",
+      businessType: "Fitness Center",
       car: "Ford Ranger",
-      numberPlate: "FF-9012",
-      imageUrl: "/Images/gym.jpg",
-      floor: "Third Floor"
+      numberPlate: "KTW 123T",
+      imageUrl: "/Images/gym-a.jpg",
+      floor: "3rd Floor"
     },
     {
-      id: 8,
-      businessName: "Dental Care",
-      ownerName: "Rose Wambui",
-      businessType: "Dental Clinic",
+      _id: "t8",
+      businessName: "Bright Smiles Dental",
+      ownerName: "Grace Njiru",
+      businessType: "Dental Care",
       car: "Toyota RAV4",
-      numberPlate: "DC-3456",
+      numberPlate: "KJB 112Z",
       imageUrl: "/Images/dental.jpg",
-      floor: "Third Floor"
+      floor: "3rd Floor"
     },
     {
-      id: 9,
-      businessName: "Book Nook",
-      ownerName: "Peter Ndungu",
+      _id: "t9",
+      businessName: "Paper Trails Bookstore",
+      ownerName: "Chris Mwangi",
       businessType: "Bookstore",
       car: "Honda HR-V",
-      numberPlate: "BN-7890",
+      numberPlate: "KBS 456Y",
       imageUrl: "/Images/bookstore.jpg",
-      floor: "Third Floor"
+      floor: "3rd Floor"
     }
   ];
 
@@ -120,12 +120,12 @@ const TenantDisplay = () => {
       setTenants(allTenants);
       setLoading(false);
     }, 800);
-
     return () => clearTimeout(timer);
   }, []);
 
-  const filteredTenants = tenants.filter(tenant => {
-    const matchesSearch = tenant.floor.toLowerCase().includes(searchTerm.toLowerCase()) ||
+  const filteredTenants = tenants.filter((tenant) => {
+    const matchesSearch =
+      tenant.floor.toLowerCase().includes(searchTerm.toLowerCase()) ||
       tenant.businessName.toLowerCase().includes(searchTerm.toLowerCase()) ||
       tenant.businessType.toLowerCase().includes(searchTerm.toLowerCase());
 
@@ -134,13 +134,7 @@ const TenantDisplay = () => {
     return matchesSearch && matchesFloor;
   });
 
-  const floors = ['All Floors', ...Array.from(new Set(tenants.map(tenant => tenant.floor)))];
-
-  if (loading) return (
-    <div className="flex justify-center items-center h-64">
-      <p className="text-xl">Loading tenants...</p>
-    </div>
-  );
+  const floors = ['All Floors', '1st Floor', '2nd Floor', '3rd Floor'];
 
   return (
     <Layout>
@@ -150,7 +144,7 @@ const TenantDisplay = () => {
         <div className="flex flex-col md:flex-row gap-4 mb-6 w-full max-w-2xl">
           <input
             type="text"
-            placeholder="Search by floor"
+            placeholder="Search by floor, business, or type"
             className="p-3 bg-gray-100 rounded focus:outline-none focus:ring-2 focus:ring-orange-300 flex-grow"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
@@ -161,8 +155,10 @@ const TenantDisplay = () => {
               onChange={(e) => setSelectedFloor(e.target.value)}
               className="p-3 bg-gray-100 rounded focus:outline-none focus:ring-2 focus:ring-orange-300 appearance-none pr-10 cursor-pointer min-w-[150px]"
             >
-              {floors.map(floor => (
-                <option key={floor} value={floor}>{floor}</option>
+              {floors.map((floor) => (
+                <option key={floor} value={floor}>
+                  {floor}
+                </option>
               ))}
             </select>
             <div className="absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none">
@@ -171,9 +167,11 @@ const TenantDisplay = () => {
           </div>
         </div>
 
-        {floors.filter(floor => floor !== 'All Floors').map(floor => {
-          const floorTenants = filteredTenants.filter(tenant =>
-            selectedFloor === 'All Floors' || selectedFloor === floor ? tenant.floor === floor : false
+        {floors.filter(f => f !== 'All Floors').map((floor) => {
+          const floorTenants = filteredTenants.filter((tenant) =>
+            selectedFloor === 'All Floors' || selectedFloor === floor
+              ? tenant.floor === floor
+              : false
           );
 
           if (floorTenants.length === 0) return null;
@@ -183,17 +181,19 @@ const TenantDisplay = () => {
               <h2 className="text-xl md:text-2xl font-semibold mb-6 px-4">{floor}</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-4">
                 {floorTenants.map((tenant) => (
-                  <div key={tenant.id} className="bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:shadow-lg hover:-translate-y-1">
+                  <div
+                    key={tenant._id}
+                    className="bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:shadow-lg hover:-translate-y-1"
+                  >
                     <div className="relative h-52 w-full">
-                    <Image
-                   src={tenant.imageUrl}
-                   alt={tenant.businessName}
-                   width={400}
-                   height={200}
-                   quality={100}
-  className="object-cover w-full h-52 rounded-t-lg"
-/>
-
+                      <Image
+                        src={tenant.imageUrl}
+                        alt={tenant.businessName}
+                        width={400}
+                        height={200}
+                        quality={100}
+                        className="object-cover w-full h-52 rounded-t-lg"
+                      />
                     </div>
                     <div className="p-5">
                       <h3 className="text-lg font-semibold mb-2">{tenant.businessName}</h3>
