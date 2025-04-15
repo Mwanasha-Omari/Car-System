@@ -10,7 +10,7 @@ export default function Home() {
       <div className="absolute inset-0 bg-black bg-opacity-60 z-0" />
       <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-4 text-white">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">
-          Welcome to Car Management System
+          Welcome to our car management platform
         </h1>
         <p className="text-center text-lg mb-8 max-w-xl">
           View all tenants, their rental details, or track and manage visitors per Floor.
