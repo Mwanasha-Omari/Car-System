@@ -1,7 +1,7 @@
 "use client"
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Search, ChevronDown, Plus, Trash, RefreshCw } from 'lucide-react';
+import { Search, ChevronDown, Plus, Trash} from 'lucide-react';
 import { HomeIcon, UsersIcon, UserGroupIcon, Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 
 interface Visitor {
@@ -191,7 +191,7 @@ const Layout = ({ children }) => {
 
 const Visitors = () => {
   const [tenants, setTenants] = useState<Tenant[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
+  // const [loading, setLoading] = useState<boolean>(true);
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [selectedFloor, setSelectedFloor] = useState<string>('All Floors');
   const [visitorFormState, setVisitorFormState] = useState<Record<string, any>>({});
@@ -375,7 +375,7 @@ const Visitors = () => {
                 <input
                   type="text"
                   placeholder="Search businesses..."
-                  className="pl-10 p-2 bg-white border rounded-md focus:outline-none focus:ring-2 focus:ring-orange-300 w-full"
+                  className="text-black pl-10 p-2 bg-white border rounded-md focus:outline-none focus:ring-2 focus:ring-orange-300 w-full"
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                 />
@@ -395,7 +395,6 @@ const Visitors = () => {
               </div>
             </div>
           </div>
-
           {filteredTenants.length === 0 && (
             <div className="bg-white p-8 rounded-lg shadow-md text-center">
               <p className="text-gray-500 text-lg">No tenants found. Try a different search.</p>
