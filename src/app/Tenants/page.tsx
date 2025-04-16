@@ -111,14 +111,12 @@ const TenantDisplay = () => {
   ];
 
   const [tenants, setTenants] = useState<Tenant[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [selectedFloor, setSelectedFloor] = useState<string>('All Floors');
 
   useEffect(() => {
     const timer = setTimeout(() => {
       setTenants(allTenants);
-      setLoading(false);
     }, 800);
     return () => clearTimeout(timer);
   }, []);
