@@ -4,6 +4,14 @@ import Link from 'next/link';
 import { Search, ChevronDown, Plus, Trash,RefreshCw} from 'lucide-react';
 import { HomeIcon, UsersIcon, UserGroupIcon, Bars3Icon, XMarkIcon, ArrowRightOnRectangleIcon } from '@heroicons/react/24/outline';
 
+interface VisitorFormFields {
+  fullName: string;
+  carType: string;
+  idNumber: string;
+  phoneNumber: string;
+  arrivalTime: string;
+}
+
 interface Visitor {
   _id?: string;
   tenantId: string;
@@ -206,7 +214,8 @@ const Visitors = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [selectedFloor, setSelectedFloor] = useState<string>('All Floors');
-  const [visitorFormState, setVisitorFormState] = useState<Record<string, any>>({});
+  const [visitorFormState, setVisitorFormState] = useState<Record<string, VisitorFormFields>>({});
+
 
   const resetVisitorForm = (tenantId: string) => {
     setVisitorFormState({
@@ -230,17 +239,17 @@ const Visitors = () => {
             visitors: mockVisitors[tenant._id] || []
           }));
           setTenants(tenantsWithVisitors);
-          const formState: Record<string, any> = {};
-          tenantsWithVisitors.forEach(tenant => {
-            formState[tenant._id] = {
-              fullName: '',
-              carType: '',
-              idNumber: '',
-              phoneNumber: '',
-              arrivalTime: ''
-            };
-          });
-          setVisitorFormState(formState);
+          const formState: Record<string, VisitorFormFields> = {};
+tenantsWithVisitors.forEach(tenant => {
+  formState[tenant._id] = {
+    fullName: '',
+    carType: '',
+    idNumber: '',
+    phoneNumber: '',
+    arrivalTime: ''
+  };
+});
+setVisitorFormState(formState);
           setLoading(false);
         }, 1000);
       } catch (error) {
@@ -288,7 +297,7 @@ const Visitors = () => {
     }
 
     try {
-      const { departureTime, duration } = calculateTime(formData.arrivalTime);
+      // const { departureTime, duration } = calculateTime(formData.arrivalTime);
 
       const visitorData: Visitor = {
         _id: `v${Math.random().toString(36).substr(2, 9)}`,
