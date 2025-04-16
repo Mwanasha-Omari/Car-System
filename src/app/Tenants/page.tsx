@@ -166,16 +166,13 @@ const TenantDisplay = () => {
             </div>
           </div>
         </div>
-
         {floors.filter(f => f !== 'All Floors').map((floor) => {
           const floorTenants = filteredTenants.filter((tenant) =>
             selectedFloor === 'All Floors' || selectedFloor === floor
               ? tenant.floor === floor
               : false
           );
-
           if (floorTenants.length === 0) return null;
-
           return (
             <div key={floor} className="w-full max-w-7xl mb-12">
               <h2 className="text-xl md:text-2xl font-semibold mb-6 px-4">{floor}</h2>

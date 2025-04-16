@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Search, ChevronDown, Plus, Trash,RefreshCw} from 'lucide-react';
-import { HomeIcon, UsersIcon, UserGroupIcon, Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
+import { HomeIcon, UsersIcon, UserGroupIcon, Bars3Icon, XMarkIcon, ArrowRightOnRectangleIcon } from '@heroicons/react/24/outline';
 
 interface Visitor {
   _id?: string;
@@ -67,12 +67,18 @@ const Sidebar = () => {
   
   return (
     <>
-      <div className="fixed top-0 left-0 h-full bg-orange-600 text-white w-64 flex-col hidden md:flex py-8 px-4 z-30">
-        <SidebarLink href="/Home" icon={<HomeIcon className="h-6 w-6" />}>Home</SidebarLink>
-        <SidebarLink href="/Tenants" icon={<UsersIcon className="h-6 w-6" />}>Tenants</SidebarLink>
-        <SidebarLink href="/Visitors" icon={<UserGroupIcon className="h-6 w-6" />}>Visitors</SidebarLink>
+      <div className="fixed top-0 left-0 h-full bg-orange-600 text-white w-64 flex flex-col hidden md:flex py-8 px-4 z-30">
+        <div className="flex-grow">
+          <SidebarLink href="/Home" icon={<HomeIcon className="h-6 w-6" />}>Home</SidebarLink>
+          <SidebarLink href="/Tenants" icon={<UsersIcon className="h-6 w-6" />}>Tenants</SidebarLink>
+          <SidebarLink href="/Visitors" icon={<UserGroupIcon className="h-6 w-6" />}>Visitors</SidebarLink>
+        </div>
+        <div className="mt-auto border-t border-orange-500 pt-4">
+          <SidebarLink href="/Login" icon={<ArrowRightOnRectangleIcon className="h-6 w-6" />}>Logout</SidebarLink>
+        </div>
       </div>
-            <div className="md:hidden fixed top-4 left-4 z-40">
+      
+      <div className="md:hidden fixed top-4 left-4 z-40">
         <button
           onClick={() => setIsSidebarOpen(!isSidebarOpen)}
           className="bg-orange-600 text-white p-2 rounded-md hover:bg-orange-700 transition-colors"
@@ -84,7 +90,8 @@ const Sidebar = () => {
           )}
         </button>
       </div>
-            {isSidebarOpen && (
+      
+      {isSidebarOpen && (
         <div className="md:hidden fixed inset-0 bg-black bg-opacity-50 z-40" onClick={() => setIsSidebarOpen(false)}>
           <div
             className="fixed top-0 left-0 h-full w-64 bg-orange-600 text-white flex flex-col py-8 px-4 z-50 transform transition-transform"
@@ -98,9 +105,14 @@ const Sidebar = () => {
                 <XMarkIcon className="h-6 w-6" />
               </button>
             </div>
-            <SidebarLink href="/Home" icon={<HomeIcon className="h-6 w-6" />} onClick={() => setIsSidebarOpen(false)}>Home</SidebarLink>
-            <SidebarLink href="/Tenants" icon={<UsersIcon className="h-6 w-6" />} onClick={() => setIsSidebarOpen(false)}>Tenants</SidebarLink>
-            <SidebarLink href="/Visitors" icon={<UserGroupIcon className="h-6 w-6" />} onClick={() => setIsSidebarOpen(false)}>Visitors</SidebarLink>
+            <div className="flex-grow">
+              <SidebarLink href="/Home" icon={<HomeIcon className="h-6 w-6" />} onClick={() => setIsSidebarOpen(false)}>Home</SidebarLink>
+              <SidebarLink href="/Tenants" icon={<UsersIcon className="h-6 w-6" />} onClick={() => setIsSidebarOpen(false)}>Tenants</SidebarLink>
+              <SidebarLink href="/Visitors" icon={<UserGroupIcon className="h-6 w-6" />} onClick={() => setIsSidebarOpen(false)}>Visitors</SidebarLink>
+            </div>
+            <div className="mt-auto border-t border-orange-500 pt-4">
+              <SidebarLink href="/Login" icon={<ArrowRightOnRectangleIcon className="h-6 w-6" />} onClick={() => setIsSidebarOpen(false)}>Logout</SidebarLink>
+            </div>
           </div>
         </div>
       )}
