@@ -45,13 +45,13 @@ const Signup = () => {
                />
       </div>
 
-      <div className="w-full md:w-1/2 flex justify-center items-center p-8">
+      <div className="bg-white w-full md:w-1/2 flex justify-center items-center p-8">
         <div className="w-full max-w-md">
-          <h1 className="text-2xl font-bold mb-8 text-center">SIGNUP</h1>
+          <h1 className="text-black text-2xl font-bold mb-8 text-center">SIGNUP</h1>
           
           <form onSubmit={handleSubmit}>
             <div className="mb-6">
-              <label htmlFor="name" className="block mb-2 font-medium">
+              <label htmlFor="name" className="text-black block mb-2 font-medium">
                 Name
               </label>
               <input
@@ -67,7 +67,7 @@ const Signup = () => {
             </div>
             
             <div className="mb-6">
-              <label htmlFor="email" className="block mb-2 font-medium">
+              <label htmlFor="email" className="text-black block mb-2 font-medium">
                 Email
               </label>
               <input
@@ -83,7 +83,7 @@ const Signup = () => {
             </div>
             
             <div className="mb-6">
-              <label htmlFor="property" className="block mb-2 font-medium">
+              <label htmlFor="property" className="text-black block mb-2 font-medium">
                 Select Property Type
               </label>
               <div className="relative text-black">
@@ -106,7 +106,7 @@ const Signup = () => {
             </div>
             
             <div className="mb-6">
-              <label htmlFor="password" className="block mb-2 font-medium">
+              <label htmlFor="password" className="text-black block mb-2 font-medium">
                 Password
               </label>
               <div className="relative">
@@ -130,7 +130,7 @@ const Signup = () => {
               </div>
             </div>
             <div className="mb-8">
-              <label htmlFor="confirmPassword" className="block mb-2 font-medium">
+              <label htmlFor="confirmPassword" className="text-black block mb-2 font-medium">
                 Confirm Password
               </label>
               <div className="relative">

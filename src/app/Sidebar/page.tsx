@@ -59,7 +59,7 @@ const Sidebar = () => {
               <SidebarLink href="/Visitors" icon={<UserGroupIcon className="h-6 w-6" />} onClick={() => setIsSidebarOpen(false)}>Visitors</SidebarLink>
             </div>
             <div className="mt-auto border-t border-orange-500 pt-4">
-              <SidebarLink href="/Landingpage" icon={<ArrowRightOnRectangleIcon className="h-6 w-6" />} onClick={() => setIsSidebarOpen(false)}>Logout</SidebarLink>
+              <SidebarLink href="/Login" icon={<ArrowRightOnRectangleIcon className="h-6 w-6" />} onClick={() => setIsSidebarOpen(false)}>Logout</SidebarLink>
             </div>
           </div>
         </div>

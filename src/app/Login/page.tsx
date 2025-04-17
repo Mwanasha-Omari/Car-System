@@ -72,9 +72,9 @@ const LoginPage = () => {
         </div>
       </div>
  
-      <div className="w-full md:w-1/2 flex justify-center items-center p-8">
+      <div className="bg-white w-full md:w-1/2 flex justify-center items-center p-8">
         <div className="w-full max-w-md">
-          <h1 className="text-2xl font-bold mb-8 text-center">LOGIN</h1>
+          <h1 className="text-black text-2xl font-bold mb-8 text-center">LOGIN</h1>
           
           {error && (
             <div className="mb-4 p-3 bg-red-100 text-red-700 rounded">
@@ -84,7 +84,7 @@ const LoginPage = () => {
            
           <form onSubmit={handleSubmit}>
             <div className="mb-6">
-              <label htmlFor="email" className="block mb-2 font-medium">
+              <label htmlFor="email" className="text-black block mb-2 font-medium">
                 Email
               </label>
               <input
@@ -94,14 +94,14 @@ const LoginPage = () => {
                 placeholder="Enter Email"
                 value={formData.email}
                 onChange={handleChange}
-                className="w-full p-3 bg-gray-100 rounded focus:outline-none"
+                className="text-black w-full p-3 bg-gray-100 rounded focus:outline-none"
                 required
                 disabled={isLoading}
               />
             </div>
              
             <div className="mb-8">
-              <label htmlFor="password" className="block mb-2 font-medium">
+              <label htmlFor="password" className="text-black block mb-2 font-medium">
                 Password
               </label>
               <div className="relative text-black">
@@ -112,7 +112,7 @@ const LoginPage = () => {
                   placeholder="Enter password"
                   value={formData.password}
                   onChange={handleChange}
-                  className="w-full p-3 bg-gray-100 rounded focus:outline-none"
+                  className="text-black w-full p-3 bg-gray-100 rounded focus:outline-none"
                   required
                   disabled={isLoading}
                 />
@@ -138,7 +138,7 @@ const LoginPage = () => {
           </form>
            
           <div className="mt-6 text-center">
-          <span>Don&#39;t have an account?</span>
+          <span className='text-black'>Don&#39;t have an account?</span>
             <Link href="/Signup" className="text-orange-600 font-medium ml-1">
               SignUp
             </Link>

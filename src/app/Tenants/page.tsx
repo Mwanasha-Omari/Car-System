@@ -136,13 +136,13 @@ const TenantDisplay = () => {
 
   return (
     <Layout>
-      <div className="flex text-black flex-col items-center p-4 md:p-8">
+      <div className="bg-white flex text-black flex-col items-center p-4 md:p-8">
         <h1 className="text-2xl md:text-3xl font-bold mb-4 text-center">Find Your Rentals Here</h1>
 
         <div className="flex flex-col md:flex-row gap-4 mb-6 w-full max-w-2xl">
           <input
             type="text"
-            placeholder="Search by floor, business, or type"
+            placeholder="Search by floor"
             className="p-3 bg-gray-100 rounded focus:outline-none focus:ring-2 focus:ring-orange-300 flex-grow"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
